@@ -10,7 +10,7 @@
         <div class="card-container">
           <div v-for="(product, index) in products" :key="index" class="card">
             <div class="img-container">
-              <img v-bind:src="product.img" />
+              <img v-bind:src="require('./../assets/img/' + product.img)" />
             </div>
 
             <div class="card-text">
@@ -34,73 +34,73 @@ export default {
           id: 1,
           description: "Quarz Luxe",
           price: 12,
-          img: "/img/quarz-luxe.abb2923e.jpg",
+          img: "quarz-luxe.jpg",
         },
         {
           id: 2,
           description: "Curren Business",
           price: 20,
-          img: "/img/curren-business.aa8f2165.jpg",
+          img: "curren-business.jpg",
         },
         {
           id: 3,
           description: "Curren Sport",
           price: 5,
-          img: "/img/curren-sport.7a0c9f6d.jpg",
+          img: "curren-sport.jpg",
         },
         {
           id: 4,
           description: "Jaragar Racing",
           price: 8,
-          img: "/img/jaragar-racing.c6677fe1.jpg",
+          img: "jaragar-racing.jpg",
         },
         {
           id: 5,
           description: "Liges Hommes",
           price: 3,
-          img: "/img/liges-hommes.2cc68015.jpg",
+          img: "liges-hommes.jpg",
         },
         {
           id: 6,
           description: "Maserati Mechanical",
           price: 65,
-          img: "/img/maserati-mechanical.6e0c208c.jpg",
+          img: "maserati-mechanical.jpg",
         },
         {
           id: 7,
           description: "Montre Mecanique",
           price: 25,
-          img: "/img/montre-mecanique.479c1093.jpg",
+          img: "montre-mecanique.jpg",
         },
         {
           id: 8,
           description: "Brand Designer",
           price: 28,
-          img: "/img/brand-designer.fd8ee953.jpg",
+          img: "brand-designer.jpg",
         },
         {
           id: 9,
           description: "Relogio Masculino",
           price: 4,
-          img: "/img/relogio-masculino.f593914c.jpg",
+          img: "relogio-masculino.jpg",
         },
         {
           id: 10,
           description: "Tissot Multifunction",
           price: 29,
-          img: "/img/tissot-multifunction.59f8fae8.jpg",
+          img: "tissot-multifunction.jpg",
         },
         {
           id: 11,
           description: "Hip Hop Gold",
           price: 87,
-          img: "/img/hiphop-gold.9f366bdf.jpg",
+          img: "hiphop-gold.jpg",
         },
         {
           id: 12,
           description: "Mesh Genova",
           price: 6,
-          img: "/img/mesh-genova.36039d46.jpg",
+          img: "mesh-genova.jpg",
         },
       ],
     };
