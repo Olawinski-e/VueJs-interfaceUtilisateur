@@ -7,6 +7,9 @@ import "./assets/scss/index.scss";
 import { BootstrapVue } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+
 import App from "./App.vue";
 import router from "./router";
 

@@ -4,21 +4,65 @@
       <h1>Articles</h1>
 
       <!-- search display -->
+      <input
+        v-model="searchKey"
+        type="search"
+        id="search"
+        placeholder="Search.."
+        autocomplete="off"
+      />
+      <span v-if="searchKey && filteredList.length >= 1">
+        {{ filteredList.length }} result<span v-if="filteredList.length >= 2"
+          >s</span
+        >
+      </span>
 
       <!-- cards display -->
       <div class="card-cart-container">
         <div class="card-container">
-          <div v-for="(product, index) in products" :key="index" class="card">
+          <div
+            v-for="(product, index) in filteredList"
+            :key="index"
+            class="card"
+          >
             <div class="img-container">
               <img v-bind:src="require('./../assets/img/' + product.img)" />
             </div>
 
             <div class="card-text">
               <h3>{{ product.description }}</h3>
-              <span>{{ product.price }}</span>
+              <span>{{ moneyFormat(product.price) }}</span>
+            </div>
+
+            <div class="card-icons">
+              <div class="like-container">
+                <input
+                  v-bind:id="product.id"
+                  type="checkbox"
+                  name="checkbox"
+                  :value="product.id"
+                  v-model="liked"
+                  @click="setLikeCookies()"
+                />
+                <label v-bind:for="product.id">
+                  <i class="fas fa-heart"></i>
+                </label>
+              </div>
+
+              <div class="add-to-cart">
+                <button>
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- no result message -->
+      <div v-if="filteredList.length == []" class="no-result">
+        <h3>Sorry</h3>
+        <p>no result found...</p>
       </div>
     </div>
   </div>
@@ -103,7 +147,34 @@ export default {
           img: "mesh-genova.jpg",
         },
       ],
+      searchKey: "",
+      liked: [],
     };
+  },
+  methods: {
+    moneyFormat(price) {
+      return "$" + price;
+    },
+    setLikeCookies() {
+      document.addEventListener("input", () => {
+        setTimeout(() => {
+          this.$cookies.set("like", JSON.stringify(this.liked));
+        }, 500);
+      });
+    },
+    getLikeCookie() {
+      let cookieValue = JSON.parse(this.$cookies.get("like"));
+      cookieValue == null ? (this.liked = []) : (this.liked = cookieValue);
+    },
+  },
+  computed: {
+    filteredList() {
+      return this.products.filter((product) => {
+        return product.description
+          .toLowerCase()
+          .includes(this.searchKey.toLowerCase());
+      });
+    },
   },
 };
 </script>
