@@ -359,18 +359,20 @@ nav {
           justify-content: flex-start;
           align-items: center;
           margin-left: 10px;
+          margin-top: 6px;
 
           h6 {
             color: #333;
+            margin-bottom: 0;
           }
           .cart-icons {
             display: flex;
             justify-content: space-between;
-            width: 30%;
             margin-left: 10px;
 
             button {
               transform: scaleY(0);
+              display: flex;
 
               @mixin icon-anim($delay) {
                 animation: icon 0.5s ease forwards;
@@ -414,6 +416,7 @@ nav {
     .grand-total {
       h6 {
         color: #333;
+        text-align: left;
       }
       .total {
         display: flex;
@@ -468,14 +471,16 @@ nav {
   .item-anim {
     &-enter-active,
     &-leave-active {
-      opacity: 1;
+      transform: scale(1);
       transition: 0.8s;
     }
-    &-enter,
+    &-enter {
+      transition: 0.8s;
+    }
     &-leave-to {
-      opacity: 0;
+      transform: scale(0);
       transform: translateY(100px);
-      transition: 0.7s;
+      transition: 0.4s;
     }
   }
 }
