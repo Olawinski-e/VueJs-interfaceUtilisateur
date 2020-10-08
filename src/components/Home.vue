@@ -42,7 +42,6 @@
                   name="checkbox"
                   :value="product.id"
                   v-model="liked"
-                  @click="setLikeCookies()"
                 />
                 <label v-bind:for="product.id">
                   <i class="fas fa-heart"></i>
@@ -151,22 +150,6 @@ export default {
       liked: [],
     };
   },
-  methods: {
-    moneyFormat(price) {
-      return "$" + price;
-    },
-    setLikeCookies() {
-      document.addEventListener("input", () => {
-        setTimeout(() => {
-          this.$cookies.set("like", JSON.stringify(this.liked));
-        }, 500);
-      });
-    },
-    getLikeCookie() {
-      let cookieValue = JSON.parse(this.$cookies.get("like"));
-      cookieValue == null ? (this.liked = []) : (this.liked = cookieValue);
-    },
-  },
   computed: {
     filteredList() {
       return this.products.filter((product) => {
@@ -174,6 +157,11 @@ export default {
           .toLowerCase()
           .includes(this.searchKey.toLowerCase());
       });
+    },
+  },
+  methods: {
+    moneyFormat(price) {
+      return "$" + price;
     },
   },
 };
