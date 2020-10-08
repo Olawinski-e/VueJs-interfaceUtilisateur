@@ -17,6 +17,10 @@
         >
       </span>
 
+      <div v-for="(product, inde) in liked" :key="inde">
+        {{ product }}
+      </div>
+
       <!-- cards display -->
       <div class="card-cart-container">
         <div class="card-container">
@@ -40,8 +44,9 @@
                   v-bind:id="product.id"
                   type="checkbox"
                   name="checkbox"
-                  :value="product.id"
+                  :value="product"
                   v-model="liked"
+                  @click="setLikes(product)"
                 />
                 <label v-bind:for="product.id">
                   <i class="fas fa-heart"></i>
@@ -49,19 +54,36 @@
               </div>
 
               <div class="add-to-cart">
-                <button>
+                <button @click="addToCart(product)">
                   <i class="fas fa-shopping-cart"></i>
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- no result message -->
-      <div v-if="filteredList.length == []" class="no-result">
-        <h3>Sorry</h3>
-        <p>no result found...</p>
+        <!-- no result message -->
+        <div v-if="filteredList.length == []" class="no-result">
+          <h3>Sorry</h3>
+          <p>no result found...</p>
+        </div>
+
+        <!-- cart display  -->
+        <div v-if="cart.length > 0" class="shopping-cart" id="shopping-cart">
+          <h2>Panier</h2>
+
+          <div class="item-group">
+            <div v-for="(product, index) in cart" :key="index" class="item">
+              <div class="img-container">
+                <img v-bind:src="require('./../assets/img/' + product.img)" />
+              </div>
+              <div class="item-description">
+                <h4>{{ product.description }}</h4>
+                <p>{{ product.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -148,6 +170,7 @@ export default {
       ],
       searchKey: "",
       liked: [],
+      cart: [],
     };
   },
   computed: {
@@ -163,6 +186,34 @@ export default {
     moneyFormat(price) {
       return "$" + price;
     },
+    setLikes(product) {
+      for (let i = 0; i < this.liked.length; i++) {
+        if (this.liked[i].id === product.id) {
+          const index = this.liked.indexOf(product);
+          return this.liked.splice(index, 1);
+        }
+      }
+      this.liked.push(product);
+      console.log(this.liked);
+    },
+    addToCart(product) {
+      // check if already in cart
+      for (let i = 0; i < this.cart.length; i++) {
+        if (this.cart[i].id === product.id) {
+          return this.cart[i].quantity++;
+        }
+      }
+      this.cart.push({
+        id: product.id,
+        img: product.img,
+        description: product.description,
+        price: product.price,
+        quantity: 1,
+      });
+    },
+  },
+  mounted() {
+    console.log(this.liked);
   },
 };
 </script>
